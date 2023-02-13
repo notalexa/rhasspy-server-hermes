@@ -2576,6 +2576,8 @@ js_dir = web_dir / "js"
 img_dir = web_dir / "img"
 webfonts_dir = web_dir / "webfonts"
 docs_dir = web_dir / "docs"
+profile_dir = user_profiles_dir / _ARGS.profile
+_LOGGER.debug("PROFILE DIR IS %s",profile_dir)
 
 
 @app.route("/css/<path:filename>", methods=["GET"])
@@ -2600,6 +2602,11 @@ async def img(filename) -> Response:
 async def webfonts(filename) -> Response:
     """Web font static endpoint."""
     return await send_from_directory(webfonts_dir, filename)
+
+@app.route("/profile/<path:filename>", methods=["GET"])
+async def profile(filename) -> Response:
+    """Profile static endpoint."""
+    return await send_from_directory(profile_dir, filename)
 
 
 @app.route("/docs/")
